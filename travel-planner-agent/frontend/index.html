@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Gate — Travel Planner Agent</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <div class="terminal-bg"></div>
+
+  <header class="masthead">
+    <div class="masthead-left">
+      <span class="tag">GATE</span>
+      <h1>Where to, and for how long?</h1>
+    </div>
+    <div class="masthead-right mono">
+      <span id="clock"></span>
+    </div>
+  </header>
+
+  <main>
+    <!-- Check-in counter / form -->
+    <section class="kiosk" id="kiosk">
+      <form id="trip-form">
+        <div class="field">
+          <label for="destination">Destination</label>
+          <input type="text" id="destination" placeholder="Lisbon, Portugal" required />
+        </div>
+
+        <div class="field-row">
+          <div class="field">
+            <label for="duration">Duration <span class="unit">days</span></label>
+            <input type="number" id="duration" min="1" max="30" value="4" required />
+          </div>
+          <div class="field">
+            <label for="travelers">Travelers</label>
+            <input type="number" id="travelers" min="1" max="12" value="1" required />
+          </div>
+        </div>
+
+        <div class="field-row">
+          <div class="field">
+            <label for="budget">Total budget</label>
+            <input type="number" id="budget" min="1" placeholder="60000" required />
+          </div>
+          <div class="field">
+            <label for="currency">Currency</label>
+            <select id="currency">
+              <option value="INR" selected>INR</option>
+              <option value="USD">USD</option>
+              <option value="EUR">EUR</option>
+              <option value="GBP">GBP</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="pace">Pace</label>
+          <div class="pace-toggle" id="pace-toggle">
+            <button type="button" class="pace-btn" data-value="relaxed">Relaxed</button>
+            <button type="button" class="pace-btn active" data-value="moderate">Moderate</button>
+            <button type="button" class="pace-btn" data-value="packed">Packed</button>
+          </div>
+          <input type="hidden" id="pace" value="moderate" />
+        </div>
+
+        <div class="field">
+          <label for="interests">Interests <span class="unit">optional</span></label>
+          <input type="text" id="interests" placeholder="food, history, nightlife, hiking" />
+        </div>
+
+        <button type="submit" class="board-btn" id="board-btn">
+          <span>Board</span>
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M1 8H15M15 8L9 2M15 8L9 14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+      </form>
+    </section>
+
+    <!-- Loading state -->
+    <section class="loading-state" id="loading-state" hidden>
+      <div class="loading-strip">
+        <span class="loading-dot"></span>
+        <span id="loading-text">Routing your itinerary…</span>
+      </div>
+    </section>
+
+    <!-- Error state -->
+    <section class="error-state" id="error-state" hidden>
+      <p id="error-text"></p>
+      <button id="retry-btn" class="text-btn">Try again</button>
+    </section>
+
+    <!-- Results -->
+    <section class="results" id="results" hidden>
+      <div class="results-header">
+        <div>
+          <span class="tag">ITINERARY</span>
+          <h2 id="results-title"></h2>
+        </div>
+        <button id="new-trip-btn" class="text-btn">Plan another trip</button>
+      </div>
+
+      <div class="budget-strip mono" id="budget-strip"></div>
+
+      <div class="day-tabs" id="day-tabs"></div>
+
+      <div class="ticket-wrap" id="ticket-wrap"></div>
+
+      <div class="tips" id="tips"></div>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
